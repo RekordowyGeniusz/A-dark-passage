@@ -16,7 +16,7 @@ public class InteractionManager : MonoBehaviour
 
     protected void Interact()
     {
-        if (Input.GetKey(KeyCode.E) && CheckForInteractions())
+        if (Input.GetKey(KeyCode.E) && CheckForInteractions() && !interacted)
         {
             OnInteract();
         }
