@@ -4,7 +4,6 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
     private LayerMask layerMask;
-    private InteractionManager interactionManager;
     private Rigidbody2D rb;
     private float horizontal;
     private float speed = 3;
@@ -15,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        interactionManager = GetComponent<InteractionManager>();
     }
 
     // Update is called once per frame
