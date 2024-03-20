@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5435268327601300988}
   - component: {fileID: 6168285760576417442}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,8 +80,9 @@ GameObject:
   - component: {fileID: 7718784804868538810}
   - component: {fileID: 7187209444444285299}
   - component: {fileID: 1756555508713507274}
+  - component: {fileID: 4790499863566293591}
   - component: {fileID: -9011380991314617203}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,9 +145,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.74509805, g: 0.5882353, b: 0.04705883, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -190,7 +191,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.52
 --- !u!50 &7187209444444285299
 Rigidbody2D:
   serializedVersion: 4
@@ -228,6 +229,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dc15ed58d21fa244b8937eed3a67650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4790499863566293591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8941511073500664159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0142d8cd5e48e384293f7a7e63fc27dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!96 &-9011380991314617203
@@ -303,8 +316,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 0}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 0}
+      key1: {r: 0.6313726, g: 0.6313726, b: 0.6313726, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}

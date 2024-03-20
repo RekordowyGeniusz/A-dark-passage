@@ -7,9 +7,11 @@ public class ShootingScript : MonoBehaviour
 {
     [SerializeField]
     private Transform pivot;
+    [SerializeField]
+    private GameObject playerGFX;
     private Vector2 direction;
     public GameObject bullet;
-    private float bulletSpeed = 2000f;
+    public float bulletSpeed = 2000f;
     public Animator recoilAnimation;
     private float fireRate = 0.35f;
     public Transform shootPoint;
@@ -55,11 +57,21 @@ public class ShootingScript : MonoBehaviour
         float zValue = pivot.rotation.eulerAngles.z;
         if (zValue > 90f && zValue < 270f)
         {
-            gameObject.GetComponent<SpriteRenderer>().flipY = true;
+            FlipCharacter(false);
         }
         else
         {
-            gameObject.GetComponent<SpriteRenderer>().flipY = false;
+            FlipCharacter(true);
+
+        }
+    }
+
+    private void FlipCharacter(bool value)
+    {
+        gameObject.GetComponent<SpriteRenderer>().flipY = !value;
+        foreach (SpriteRenderer spriteR in playerGFX.GetComponentsInChildren<SpriteRenderer>())
+        {
+            spriteR.flipX = value;
         }
     }
 

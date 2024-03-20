@@ -9,6 +9,7 @@ public class SwordItemInteractable : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         PlayerStats.instance.AddAttackDmg(SwordItemStats.dmgMultiplier);
+       // Debug.Log(PlayerStats.instance.attackDmg);
         Destroy(gameObject);
         
     }

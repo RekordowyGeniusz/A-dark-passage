@@ -20,6 +20,6 @@ public class DestroyObject : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(gameObject);
+         Destroy(gameObject);
     }
 }

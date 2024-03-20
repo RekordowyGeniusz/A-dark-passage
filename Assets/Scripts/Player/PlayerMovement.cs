@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,8 +10,10 @@ public class PlayerMovement : MonoBehaviour
     private float horizontal;
     private float speed = 3;
     private float sprintSpeed = 3;
-    private float jumpHeight = 10;
+    private float jumpHeight = 12;
     private Vector2 movement;
+    private int jumps = 0;
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,32 +23,64 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       move();
+        move();
+        AnimationController();
     }
 
     private void move()
     {
         horizontal = Input.GetAxisRaw("Horizontal");
-
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded())
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
+            if (jumps < 1)
+            {
+                jumps++;
+                rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
+                animator.SetTrigger("Jumped");
+            }
+            
+        }
+        if(isGrounded())
+        {
+            jumps = 0;
         }
 
         if (Input.GetKey(KeyCode.LeftShift)){
             movement = new Vector2(horizontal * speed * sprintSpeed, rb.velocity.y);
+            rb.AddForce(new Vector2(0, -1));
         }
         else
         {
             movement = new Vector2 (horizontal * speed, rb.velocity.y);
+            rb.AddForce(new Vector2(0, -1));
+            
         }
         rb.velocity = movement;
+    }
 
-        rb.AddForce(new Vector2 (0, -1));
+    private void AnimationController()
+    {
+        if (rb.velocity.x != 0f)
+        {
+            animator.SetInteger("Speed", 2);
+        }
+        else if(rb.velocity.x == 0f)
+        {
+            animator.SetInteger("Speed", 0);
+        }
+        if (rb.velocity.y != 0f)
+        {
+            animator.SetInteger("VelocityY", 2);
+        }
+        if(rb.velocity.y == 0f)
+        {
+            animator.SetInteger("VelocityY", 0);
+        }
     }
 
     private bool isGrounded()
     {
+
         return Physics2D.OverlapCapsule(new Vector2(transform.position.x, transform.position.y - 1.5f), new Vector2(1.0f, 0.1f), CapsuleDirection2D.Horizontal, 0, layerMask);
     }
 }

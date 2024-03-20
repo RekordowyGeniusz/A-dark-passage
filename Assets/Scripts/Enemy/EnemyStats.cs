@@ -14,7 +14,11 @@ public class EnemyStats : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        gameObject.GetComponent<Transform>().localScale = new Vector2(15f,15f);
-        gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.15f,0.18f);
+    }
+
+    public void subHP(int amount)
+    {
+        HP -= amount;
+      //  Debug.Log(HP);
     }
 }

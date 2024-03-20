@@ -9,24 +9,22 @@ public class ChestInteractable : MonoBehaviour
     private GameObject swordItemObj;
     [SerializeField]
     private GameObject healthPotionItemObj;
-
-    private void ItemSpawnAmount(int amount, GameObject itemObj)
-    {
-        for (int i = 1; i <= amount; i++)
-        {
-            float rand = Random.Range(0f, 2f);
-            Instantiate(itemObj, gameObject.transform).transform.position = new Vector3(transform.position.x - rand, transform.position.y, transform.position.z);
-        }
-    }
+    [SerializeField]
+    private GameObject starItemObj;
+    [SerializeField]
+    private Sprite openSprite;
+    public static ChestInteractable instance;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.layer == 7)
         {
-            this.GetComponent<SpriteRenderer>().color = new Color(0.32f, 0.44f, 0.196f, 1f);
+            GetComponent<SpriteRenderer>().sprite = openSprite;
             gameObject.GetComponent<Collider2D>().excludeLayers = PlayerStats.instance.layerMask;
-            ItemSpawnAmount(2, swordItemObj);
-            ItemSpawnAmount(1, healthPotionItemObj);
+            GameManager.instance.ItemSpawnAmount(2, swordItemObj, gameObject.transform);
+            GameManager.instance.ItemSpawnAmount(1, healthPotionItemObj, gameObject.transform);
+            GameManager.instance.ItemSpawnAmount(2, starItemObj, gameObject.transform);
+
         }
     }
 }

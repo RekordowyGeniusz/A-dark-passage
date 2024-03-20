@@ -8,6 +8,12 @@ TagManager:
   - Tooltip
   - SwordLootItem
   - HealthpotionLootItem
+  - Bullet
+  - Enemy
+  - AttackingTeam
+  - Feet
+  - Ground
+  - Block
   layers:
   - Default
   - TransparentFX
@@ -19,11 +25,11 @@ TagManager:
   - Player
   - Loot
   - Enemy
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Bullet
+  - Star
+  - Spikes
+  - Fence
+  - End
   - 
   - 
   - 
