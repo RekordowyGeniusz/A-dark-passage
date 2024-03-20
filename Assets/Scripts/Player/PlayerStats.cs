@@ -11,6 +11,7 @@ public class PlayerStats : MonoBehaviour
     public LayerMask layerMask;
     public RectTransform panel;
     public GameObject winPanel;
+    public TextMeshProUGUI winPoints;
     public GameObject defeatPanel;
     public TextMeshProUGUI text;
     public int attackDmg = 10;
@@ -41,7 +42,14 @@ public class PlayerStats : MonoBehaviour
     }
     public void AddHealth(int count)
     {
-        HP += count;
+        if(HP + count > 100)
+        {
+            HP = 100;
+        }
+        else
+        {
+            HP += count;
+        }
     }
     public void DecreaseHealth(float count)
     {
@@ -90,6 +98,7 @@ public class PlayerStats : MonoBehaviour
         if(collision.gameObject.layer == 14)
         {
             winPanel.SetActive(true);
+            winPoints.text = points.ToString();
             GameManager.instance.Stop();
         }
     }
