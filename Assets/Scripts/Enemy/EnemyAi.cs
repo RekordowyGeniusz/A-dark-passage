@@ -120,6 +120,7 @@ public class EnemyAi : MonoBehaviour
             {
                 bulletSpeed = -bulletSpeed;
             }
+
         }
         else
         {

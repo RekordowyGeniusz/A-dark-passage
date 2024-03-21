@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class SwordItemStats 
 {
-    public static int dmgMultiplier = 1;
+    public static int dmgMultiplier = 3;
 }
