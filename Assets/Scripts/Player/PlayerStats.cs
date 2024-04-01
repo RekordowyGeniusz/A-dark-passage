@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class PlayerStats : MonoBehaviour
@@ -11,13 +12,17 @@ public class PlayerStats : MonoBehaviour
     public LayerMask layerMask;
     public RectTransform panel;
     public GameObject winPanel;
+    public TextMeshProUGUI pointsTXT;
+    public TextMeshProUGUI infoTXT;
+    public GameObject resetBtn;
+    public TextMeshProUGUI lifes;
     public TextMeshProUGUI winPoints;
     public GameObject defeatPanel;
     public TextMeshProUGUI text;
     public int attackDmg = 10;
     public float HP = 100f;
     public int points = 0;
-    private int lives = 3;
+    public int lives = 3;
     public static PlayerStats instance;
     public Animator animator;
     private bool dead = false;
@@ -26,11 +31,36 @@ public class PlayerStats : MonoBehaviour
     {
         instance = this;
     }
+    private void Start()
+    {
+        LoadStats();
+    }
     // Update is called once per frame
     void Update()
     {
         CheckIfAlive();
         UIController();
+    }
+    public void LoadStats()
+    {
+        if(PlayerPrefs.HasKey("Points"))
+        {
+            points = PlayerPrefs.GetInt("Points");
+        }
+        else
+        {
+            points = 0;
+        }
+        if (PlayerPrefs.HasKey("Lives"))
+        {
+            lives = PlayerPrefs.GetInt("Lives");
+        }
+        else
+        {
+            lives = 3;
+        }
+
+        lifes.text = "x" + lives;
     }
     public void AddAttackDmg(int count)
     {
@@ -75,14 +105,25 @@ public class PlayerStats : MonoBehaviour
             dead = true;
             animator.SetInteger("Speed", 0);
             animator.Play("Die");
-            lives--;
+            --lives;
             Invoke(nameof(GameManager.instance.Stop), 2.27f);
             Invoke(nameof(defeatPanelSetActive), 2.27f);
         }
     }
     private void defeatPanelSetActive()
     {
+        if (lives <= 0)
+        {
+            resetBtn.SetActive(false);
+            infoTXT.text = "All lifes depleted - no resets available!";
+        }
+        else
+        {
+            resetBtn.SetActive(true);
+            infoTXT.text = "You died!";
+        }
         defeatPanel.SetActive(true);
+        pointsTXT.text = points.ToString();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -95,12 +136,53 @@ public class PlayerStats : MonoBehaviour
         {
             Decreasepoints(10);
         }
+
         if(collision.gameObject.layer == 14)
         {
-            winPanel.SetActive(true);
-            winPoints.text = points.ToString();
-            GameManager.instance.Stop();
+            if(points < 35 && SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                loose("Didn't get 35 points!");
+            }
+            else if(points >= 35 && SceneManager.GetActiveScene().buildIndex == 1)
+            {
+                win();
+            }
+            if (points < 52 && SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                loose("Didn't get 52 points!");
+            }
+            else if(points >= 52 && SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                win();
+            }
+            if (SceneManager.GetActiveScene().buildIndex == 3)
+            {
+                win();
+            }
+
+            if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2)
+            {
+                PlayerPrefs.SetInt("Points", PlayerPrefs.GetInt("Points") * 2);
+            }
+            if (SceneManager.GetActiveScene().buildIndex == 3)
+            {
+                PlayerPrefs.SetInt("Points", PlayerPrefs.GetInt("Points") * 3);
+            }
+
         }
+    }
+    public void win()
+    {
+        winPanel.SetActive(true);
+        winPoints.text = points.ToString();
+        GameManager.instance.Stop();
+    }
+    public void loose(string info)
+    {
+        defeatPanel.SetActive(true);
+        pointsTXT.text = points.ToString();
+        infoTXT.text = info;
+        GameManager.instance.Stop();
     }
     private IEnumerator twoSecondsCooldown()
     {

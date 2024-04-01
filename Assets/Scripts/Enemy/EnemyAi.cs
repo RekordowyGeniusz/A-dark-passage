@@ -17,6 +17,8 @@ public class EnemyAi : MonoBehaviour
     GameObject bullet;
     [SerializeField]
     private float moveSpeed = 2f;
+    [SerializeField]
+    private bool canMove = true;
     public Transform shootPoint;
     private float bulletSpeed = 2000f;
     private float fireRate = 0.75f;
@@ -32,18 +34,21 @@ public class EnemyAi : MonoBehaviour
         {
             if (!playerInSightrange())
             {
-                if (isFacingRight())
+                if(canMove)
                 {
-                    rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
-                }
-                else
-                {
-                    rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+                    if (isFacingRight())
+                    {
+                        rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+                    }
+                    else
+                    {
+                        rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
 
-                }
-                if (rb.velocity.magnitude > Mathf.Epsilon)
-                {
-                    animator.SetFloat("Speed", 0.12f);
+                    }
+                    if (rb.velocity.magnitude > Mathf.Epsilon)
+                    {
+                        animator.SetFloat("Speed", 0.12f);
+                    }
                 }
             }
             else
