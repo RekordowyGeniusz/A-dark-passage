@@ -59,6 +59,14 @@ public class PlayerStats : MonoBehaviour
         {
             lives = 3;
         }
+        if (PlayerPrefs.HasKey("Dmg"))
+        {
+            attackDmg = PlayerPrefs.GetInt("Dmg");
+        }
+        else
+        {
+            attackDmg = 10;
+        }
 
         lifes.text = "x" + lives;
     }
@@ -105,7 +113,8 @@ public class PlayerStats : MonoBehaviour
             dead = true;
             animator.SetInteger("Speed", 0);
             animator.Play("Die");
-            --lives;
+            lives--;
+            PlayerPrefs.SetInt("Lives", lives);
             Invoke(nameof(GameManager.instance.Stop), 2.27f);
             Invoke(nameof(defeatPanelSetActive), 2.27f);
         }

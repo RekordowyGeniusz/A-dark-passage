@@ -1,12 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEditor.Progress;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,18 +31,18 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            Save(0, scene, 3);
+            Save(0, scene, 10);
+            PlayerPrefs.SetInt("Lives", 3);
             SceneManager.LoadScene(scene);
-            Restart();
         }
         else
         {
 
-            Save(PlayerStats.instance.points, scene, PlayerStats.instance.lives);
+            Save(PlayerStats.instance.points, scene, PlayerStats.instance.attackDmg);
             SceneManager.LoadScene(scene);
-            Restart();
         }
-        }
+        Restart();
+    }
 
     public void Exit()
     {
@@ -58,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 1 || !PlayerPrefs.HasKey("Level"))
         {
-            Save(0, 1, PlayerStats.instance.lives);
+            Save(0, 1, 10);
             SceneManager.LoadScene(1);
         }
         else
@@ -90,11 +84,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void Save(int points, int scene, int hearts)
+    public void Save(int points, int scene, int dmg)
     {
         PlayerPrefs.SetInt("Points", points);
         PlayerPrefs.SetInt("Level", scene);
-        PlayerPrefs.SetInt("Lives", hearts);
+        PlayerPrefs.SetInt("Dmg", dmg);
         PlayerPrefs.Save();
     }
 }

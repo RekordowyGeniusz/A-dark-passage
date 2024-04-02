@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -8,9 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private LayerMask layerMask;
     private Rigidbody2D rb;
     private float horizontal;
-    private float speed = 3;
-    private float sprintSpeed = 3;
-    private float jumpHeight = 12;
+    private float speed = 4f;
+    private float sprintSpeed = 1.5f;
+    private float jumpHeight = 8f;
     private Vector2 movement;
     private int jumps = 0;
     public Animator animator;
@@ -38,23 +39,22 @@ public class PlayerMovement : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
                 animator.SetTrigger("Jumped");
             }
-            
+
         }
-        if(isGrounded())
+        if (isGrounded())
         {
             jumps = 0;
         }
 
         if (Input.GetKey(KeyCode.LeftShift)){
             movement = new Vector2(horizontal * speed * sprintSpeed, rb.velocity.y);
-            rb.AddForce(new Vector2(0, -1));
         }
         else
         {
             movement = new Vector2 (horizontal * speed, rb.velocity.y);
-            rb.AddForce(new Vector2(0, -1));
             
         }
+        rb.AddForce(new Vector2(0, -1));
         rb.velocity = movement;
     }
 
