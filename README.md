@@ -27,3 +27,5 @@ Windows:
 ```bash
 git clone https://github.com/MaciejMi/A-dark-passage.git
 ```
+
+If you want to play in this game, open builds then open "SomeProject.exe".
