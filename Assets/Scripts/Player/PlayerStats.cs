@@ -146,36 +146,38 @@ public class PlayerStats : MonoBehaviour
             else if(points >= 35 && SceneManager.GetActiveScene().buildIndex == 1)
             {
                 win();
+                points *= 2;
             }
-            if (points < 52 && SceneManager.GetActiveScene().buildIndex == 2)
+            if(points < 76 && SceneManager.GetActiveScene().buildIndex == 2)
             {
                 loose("Didn't get 52 points!");
             }
-            else if(points >= 52 && SceneManager.GetActiveScene().buildIndex == 2)
+            else if(points >= 76 && SceneManager.GetActiveScene().buildIndex == 2)
             {
                 win();
+                points *= 2;
             }
-            if (SceneManager.GetActiveScene().buildIndex == 3)
+            if(SceneManager.GetActiveScene().buildIndex == 3)
             {
                 win();
-            }
-
-            if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2)
-            {
-                PlayerPrefs.SetInt("Points", PlayerPrefs.GetInt("Points") * 2);
-            }
-            if (SceneManager.GetActiveScene().buildIndex == 3)
-            {
-                PlayerPrefs.SetInt("Points", PlayerPrefs.GetInt("Points") * 3);
+                points *= 3;
             }
 
         }
     }
     public void win()
     {
-        winPanel.SetActive(true);
-        winPoints.text = points.ToString();
         GameManager.instance.Stop();
+        winPanel.SetActive(true);
+
+        if (SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            winPoints.text = points.ToString() + " x2";
+        }
+        if(SceneManager.GetActiveScene().buildIndex == 3)
+        {
+            winPoints.text = points.ToString() + " x3";
+        }
     }
     public void loose(string info)
     {
