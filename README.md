@@ -2,7 +2,8 @@
 
 This project was created to IT classes. This is a simpe game. You can control your character by WSAD and mouse.
 
-Developer: [@RekordowyGeniusz](https://github.com/RekordowyGeniusz)
+Developers: [@RekordowyGeniusz](https://github.com/RekordowyGeniusz) and [@MaciejMi](https://github.com/MaciejMi)
+
 
 ![image](https://github.com/MaciejMi/A-dark-passage/assets/107648916/703d89b0-e8ab-472d-9d67-bef796985d4b)
 
